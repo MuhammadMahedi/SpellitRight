@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import com.example.spellitright.R
+import com.example.spellitright.activities.MainActivity
 import com.example.spellitright.data.listOfWords
 import com.example.spellitright.databinding.FragmentHomeBinding
 import com.example.spellitright.viewModels.HomeViewModel
@@ -19,6 +20,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding:FragmentHomeBinding
     private lateinit var word:CharArray
     private val viewModel : HomeViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +37,12 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        word = listOfWords.random().toUpperCase().toCharArray()
-//        word.shuffle()
+
         viewModel.shuffledWord.observe(viewLifecycleOwner){
             binding.tvShuffledWord.text= it
         }
@@ -55,33 +58,31 @@ class HomeFragment : Fragment() {
 
 
         binding.btnDone.setOnClickListener {
-            val input=binding.etInput.text.toString().trim()
 
-            if(viewModel.isCorrect(input)){
-                Toast.makeText(requireContext(), "Matched", Toast.LENGTH_SHORT).show()
-                binding.etInput.text = null
-                viewModel.getWord()
-                viewModel.incScore()
-            }
+            if(binding.etInput.text.toString().isNotEmpty()){
 
-            else Toast.makeText(requireContext(), "Did Not Matched", Toast.LENGTH_SHORT).show()
+                val input=binding.etInput.text.toString().trim()
+
+                if(viewModel.isCorrect(input)){
+                    Toast.makeText(requireContext(), "Matched", Toast.LENGTH_SHORT).show()
+                    binding.etInput.text = null
+                    viewModel.getWord()
+                    viewModel.incScore()
+                }
+                else{
+                    Toast.makeText(requireContext(), "Did Not Matched",
+                        Toast.LENGTH_SHORT).show()
+                    showGameOverDialog()
+                }
+
+            }else Toast.makeText(requireContext(), "Please Enter something", Toast.LENGTH_SHORT).show()
+
+
         }
 
         binding.btnQuit.setOnClickListener {
 
-            val builder = AlertDialog.Builder(requireContext())
-            builder.setTitle("Are You Sure?")
-            builder.setMessage("You want to quit this game!!")
-            builder.setPositiveButton("Yes") { dialog, which ->
-                viewModel.resetItAll()
-                activity?.finish()
-            }
-            builder.setNegativeButton("No"){ dialog, which ->
-                dialog.dismiss()
-            }
-            // Create and show the AlertDialog
-            val alertDialog = builder.create()
-            alertDialog.show()
+            showExitDialog()
 
         }
 
@@ -102,6 +103,44 @@ class HomeFragment : Fragment() {
             alertDialog.show()
         }
 
+
+
+    }
+
+
+
+
+
+
+    private fun showGameOverDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Oops that's incorrect")
+        builder.setMessage("the ans is ${viewModel.currentWord.value}")
+        builder.setPositiveButton("Restart") { dialog, _ ->
+            viewModel.resetItAll()
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Quit") { dialog, _ ->
+            showExitDialog()
+            dialog.dismiss()
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    private fun showExitDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Are You Sure?")
+        builder.setMessage("You want to quit this game and Exit!!")
+        builder.setPositiveButton("Yes") { _, _ ->
+            activity?.finish()
+        }
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 
 
