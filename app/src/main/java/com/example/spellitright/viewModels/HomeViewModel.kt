@@ -3,6 +3,7 @@ package com.example.spellitright.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.spellitright.data.PreferenceHelper
 
 class HomeViewModel : ViewModel() {
 
@@ -13,6 +14,10 @@ class HomeViewModel : ViewModel() {
     val shuffledWord:LiveData<String> get()=_shuffledWord
     private var _score = MutableLiveData<Int>()
     val score:LiveData<Int> get() = _score
+
+    private var _highScore = MutableLiveData<Int>()
+    val highScore:LiveData<Int> get() = _highScore
+
 
     init {
         getWord()
