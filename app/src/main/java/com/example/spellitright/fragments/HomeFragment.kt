@@ -70,10 +70,15 @@ class HomeFragment : Fragment() {
                 val input=binding.etInput.text.toString().trim()
 
                 if(viewModel.isCorrect(input)){
-                    Toast.makeText(requireContext(), "Matched", Toast.LENGTH_SHORT).show()
-                    binding.etInput.text = null
-                    viewModel.getWord()
                     viewModel.incScore()
+                    if(!viewModel.allWordsSpelled()){
+                        binding.etInput.text = null
+                        viewModel.getWord()
+                    }else{
+                        preferencesHelper.setHighScore(viewModel.score.value!!)
+                        showFinishDialog()
+                    }
+
                 }
                 else{
                     Toast.makeText(requireContext(), "Did Not Matched",
@@ -104,6 +109,7 @@ class HomeFragment : Fragment() {
             builder.setPositiveButton("Yes") { dialog, which ->
                 viewModel.resetItAll()
                 binding.etInput.text = null
+                dialog.dismiss()
             }
             builder.setNegativeButton("No"){ dialog, which ->
                 dialog.dismiss()
@@ -152,6 +158,23 @@ class HomeFragment : Fragment() {
             activity?.finish()
         }
         builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.setCancelable(false)
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    private fun showFinishDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Congratulations!!")
+        builder.setMessage("You have spelled all the words correctly.")
+        builder.setPositiveButton("Exit") { _, _ ->
+            activity?.finish()
+        }
+        builder.setNegativeButton("Start Again") { dialog, _ ->
+            viewModel.resetItAll()
+            binding.etInput.text = null
             dialog.dismiss()
         }
         builder.setCancelable(false)

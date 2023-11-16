@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/spell_it_right"
-        android:textSize="50dp"
+        android:textSize="40dp"
         android:textStyle="bold"
         android:textColor="#CA2C2C"
 

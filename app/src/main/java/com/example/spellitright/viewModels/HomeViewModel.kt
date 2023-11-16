@@ -3,11 +3,11 @@ package com.example.spellitright.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.spellitright.data.PreferenceHelper
+import com.example.spellitright.data.listOfWords
 
 class HomeViewModel : ViewModel() {
 
-    private var listOfWords: MutableList<String> = mutableListOf()
+    private var spelledWords: MutableList<String> = mutableListOf()
     private var _currentWord = MutableLiveData<String>()
     val currentWord: LiveData<String> = _currentWord
     private var _shuffledWord = MutableLiveData<String>()
@@ -25,12 +25,12 @@ class HomeViewModel : ViewModel() {
     }
 
     fun getWord(){
-        val word = com.example.spellitright.data.listOfWords.random().toUpperCase()
-        _currentWord.postValue(word)
+        var word = com.example.spellitright.data.listOfWords.random().toUpperCase()
 
-        if(listOfWords.contains(word)){
-            getWord()
+        while(spelledWords.contains(word)){
+            word = com.example.spellitright.data.listOfWords.random().toUpperCase()
         }
+        _currentWord.postValue(word)
         val tWord= word.toCharArray()
         tWord.shuffle()
 
@@ -38,23 +38,27 @@ class HomeViewModel : ViewModel() {
             tWord.shuffle()
         }
         _shuffledWord.postValue(String(tWord))
+        //listOfWords.add(_currentWord.value!!)
     }
 
     fun isCorrect(input:String):Boolean{
         return if(input.equals(_currentWord.value,true)){
-            listOfWords.add(_currentWord.value!!)
+           spelledWords.add(_currentWord.value!!)
             true
         } else false
     }
 
+    fun allWordsSpelled():Boolean{
+        return spelledWords.size == listOfWords.size
+    }
     fun incScore(){
         _score.value = (_score.value)?.plus(1)
     }
 
     fun resetItAll(){
-        getWord()
         _score.postValue(0)
-        listOfWords.clear()
+        spelledWords.clear()
+        getWord()
 
     }
 

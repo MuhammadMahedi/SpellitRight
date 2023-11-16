@@ -1,21 +1,21 @@
 package com.example.spellitright.data
 
 val listOfWords= listOf<String>(
-    "apple", "basic", "black", "board", "break",
+    "apple", "basic", "black", "bread", "break",
     "brown", "carry", "chair", "child", "clean",
     "close", "coach", "color", "crash", "cream",
     "crime", "cross", "dance", "doubt", "drive",
-    "earth", "enjoy", "equal", "event", "field",
+    "empty", "enjoy", "equal", "event", "field",
     "fight", "final", "flame", "floor", "focus",
     "force", "frame", "fresh", "front", "green",
     "happy", "honor", "house", "image", "issue",
     "judge", "knife", "labor", "laugh", "light",
     "lunch", "magic", "major", "march", "match",
-    "money", "media", "metal", "music", "naked",
+    "money", "media", "metal", "music", "north",
     "noise", "ocean", "order", "paint", "peace",
     "phone", "plant", "power", "press", "price",
-    "prize", "queen", "quiet", "range", "ready",
-    "roast", "route", "scale", "shape", "share",
+    "prize", "queen", "quiet", "range", "right",
+    "roast", "route", "scale", "snake", "share",
     "shoes", "silly", "skill", "smile", "space",
     "speak", "spend", "sport", "stand", "store",
     "sugar", "table", "taste", "teach", "theme",
@@ -25,3 +25,5 @@ val listOfWords= listOf<String>(
     "woman", "women", "worry", "wound", "wrist",
     "write", "young"
 )
+
+
