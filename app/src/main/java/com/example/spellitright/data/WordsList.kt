@@ -18,7 +18,7 @@ val listOfWords= listOf<String>(
     "roast", "route", "scale", "snake", "share",
     "shoes", "silly", "skill", "smile", "space",
     "speak", "spend", "sport", "stand", "store",
-    "sugar", "table", "taste", "teach", "theme",
+    "sugar", "table", "tiger", "teach", "theme",
     "today", "tooth", "tough", "track", "trade",
     "train", "truth", "twist", "under", "usual",
     "video", "visit", "voice", "water", "white",

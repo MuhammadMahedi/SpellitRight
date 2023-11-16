@@ -134,7 +134,8 @@ class HomeFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Oops!! that's incorrect")
         builder.setMessage("the ans is ${viewModel.currentWord.value}\n\n" +
-                "HighScore : ${preferencesHelper.getHighScore()}")
+                "Your Score : ${viewModel.score.value}\n" +
+                "High Score : ${preferencesHelper.getHighScore()}")
         builder.setPositiveButton("Restart") { dialog, _ ->
             viewModel.resetItAll()
             binding.etInput.text = null

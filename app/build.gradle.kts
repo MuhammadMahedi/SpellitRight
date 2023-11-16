@@ -60,4 +60,7 @@ dependencies {
 
 
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+
+    //for lottie animation
+    implementation ("com.airbnb.android:lottie:6.1.0")
 }
