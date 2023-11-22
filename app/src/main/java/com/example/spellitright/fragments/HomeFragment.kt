@@ -17,7 +17,6 @@ import com.example.spellitright.viewModels.HomeViewModel
 
 
 class HomeFragment : Fragment() {
-
     private lateinit var binding:FragmentHomeBinding
     private lateinit var word:CharArray
     private val viewModel : HomeViewModel by viewModels()
@@ -154,7 +153,7 @@ class HomeFragment : Fragment() {
     private fun showExitDialog() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Are You Sure, You want to quit?")
-        builder.setMessage("You will loose your points")
+        builder.setMessage("You will lose your points")
         builder.setPositiveButton("Yes") { _, _ ->
             activity?.finish()
         }
